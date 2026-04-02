@@ -22,7 +22,16 @@ namespace BibleVerseGenApp
         }
         public async Task<BibleVerse> GetRandomVerseAsync()
         {
-            return await _http.GetFromJsonAsync<BibleVerse>("https://bolls.life/get-random-verse/NKJV/");
+            try
+    {
+        return await _http.GetFromJsonAsync<BibleVerse>(
+            "https://bolls.life/get-random-verse/NKJV/");
+    }
+    catch (HttpRequestException)
+    {
+        // log or handle failure
+        return null;
+    }
         }
 
         public static string GetBookName(int bookNumber)
